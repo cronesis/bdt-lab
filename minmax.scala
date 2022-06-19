@@ -22,7 +22,7 @@ object scalaMinMax {
 		for (v <- nA) {
 			if (v > max)
 				max = v
-			else if (v < min)
+			if (v < min)
 				min = v
 		}
 
