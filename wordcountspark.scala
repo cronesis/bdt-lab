@@ -5,11 +5,12 @@ import org.apache.spark.rdd.RDD
 object wordcount {
   def main(args: Array[String]) {
     val pathToFile = "/home/subhrajit/sparkProjects/data/log.txt"
+    
     val conf = new SparkConf()
       .setAppName("Wordcount")
       .setMaster("local[*]")
-
     val sc = new SparkContext(conf)
+    
     val wordsRdd = sc.textFile(pathToFile).flatMap(_.split(" "))
     val wordCountInitRdd = wordsRdd.map(word => (word, 1))
     val wordCountRdd = wordCountInitRdd.reduceByKey((v1, v2) => v1 + v2)
