@@ -1,4 +1,5 @@
 import org.apache.spark.{SparkContext, SparkConf}
+import scala.Ordering
 import org.apache.spark.rdd._
 
 object tweetmining {
@@ -20,12 +21,11 @@ object tweetmining {
       		sc.textFile(pathToFile).mapPartitions(TweetUtils.parseFromJson(_))
 
     		val tweetsByUser = tweets.map(x => (x.user, x)).groupByKey()
-	}
-    
-	val numTweetsByUser = tweetsByUser.map(x => (x._1, x._2.size))
-    	val sortedUsersByNumTweets = numTweetsByUser.sortBy(_._2, ascending=false)
-    	sortedUsersByNumTweets.take(10).foreach(println)
-  }
+
+		val numTweetsByUser = tweetsByUser.map(x => (x._1, x._2.size))
+    		val sortedUsersByNumTweets = numTweetsByUser.sortBy(_._2, ascending=false)
+    		sortedUsersByNumTweets.take(10).foreach(println)
+ 	 }
 }
 
 import com.google.gson._
