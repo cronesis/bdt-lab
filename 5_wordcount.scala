@@ -1,4 +1,5 @@
 import scala.io.Source
+import scala.collection.mutable.Map
 
 object scalaWordCount {
 	def main(args: Array[String]) {
@@ -8,7 +9,7 @@ object scalaWordCount {
 		}
 
 		val fileName = args(0)
-		val wordCount = scala.collection.mutable.Map[String, Int]()
+		val wordCount = Map[String, Int]()
 
 		for(line <- Source.fromFile(fileName).getLines())
 			for(word <- line.split("\\s+"))
